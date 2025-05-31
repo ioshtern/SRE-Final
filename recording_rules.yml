@@ -1,0 +1,5 @@
+groups:
+- name: example_rules
+  rules:
+  - record: job:cpu_usage:avg_rate5m
+    expr: avg(rate(node_cpu_seconds_total[5m])) by (job)

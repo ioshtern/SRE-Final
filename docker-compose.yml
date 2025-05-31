@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  shuup:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    tty: true
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    depends_on:
+      - shuup
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - prometheus
