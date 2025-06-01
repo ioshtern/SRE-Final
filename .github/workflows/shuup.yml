@@ -24,13 +24,13 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y \
           libjpeg-dev zlib1g-dev libfreetype6-dev libtiff-dev libwebp-dev \
-          libxml2-dev libxslt1-dev  # Добавлены зависимости для lxml
+          libxml2-dev libxslt1-dev python3-dev  # Добавлены зависимости для lxml и Python
 
     - name: Install python dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel pytest
-        pip install django shuup  # Установка Django и Shuup
-        # Если есть requirements.txt, можно использовать:
+        pip install django shuup lxml  # Явно устанавливаем lxml
+        # Если есть requirements.txt, лучше использовать:
         # pip install -r requirements.txt
 
     - name: Set up Django settings
