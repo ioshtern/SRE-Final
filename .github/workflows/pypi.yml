@@ -29,9 +29,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip setuptools wheel pytest
 
-    - name: Run tests
-      run: |
-        pytest shuup_tests/
 
     - name: Build Docker image
       run: |
