@@ -19,27 +19,28 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install system dependencies for Pillow
+    - name: Install system dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-          libjpeg-dev zlib1g-dev libfreetype6-dev libtiff-dev libwebp-dev
+          libjpeg-dev zlib1g-dev libfreetype6-dev libtiff-dev libwebp-dev \
+          libxml2-dev libxslt1-dev  # Добавлены зависимости для lxml
 
     - name: Install python dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel pytest
-        pip install django shuup  # Устанавливаем Django и Shuup
+        pip install django shuup  # Установка Django и Shuup
         # Если есть requirements.txt, можно использовать:
         # pip install -r requirements.txt
 
     - name: Set up Django settings
       run: |
         echo "DJANGO_SETTINGS_MODULE=shuup_tests.settings" >> $GITHUB_ENV
-      # Укажите правильный путь к модулю настроек, если он отличается
+      # Замените shuup_tests.settings на правильный путь к вашему модулю настроек
 
     - name: Run tests
       run: |
-        pytest shuup_tests/
+        pytest shuup_tests/ --verbose
 
     - name: Build Docker image
       run: |
